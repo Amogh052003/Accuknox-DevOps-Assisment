@@ -22,6 +22,7 @@ spec:
       containers:
       - name: wisecow
         image: amoghlokhande/wisecow:latest
+        imagePullPolicy: Always
 
         ports:
         - containerPort: 4499

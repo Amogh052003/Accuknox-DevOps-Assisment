@@ -1,1 +1,36 @@
+# Runtime files
 response
+
+# Generated logs
+*.log
+ps2/scripts/system_health.log
+
+# TLS certificates and private keys
+tls/
+*.crt
+*.key
+*.pem
+
+# Kubernetes local configs
+kubeconfig
+.kube/
+
+# Editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python (future-proofing)
+__pycache__/
+*.pyc
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Actions runner (if ever placed inside repo)
+actions-runner/

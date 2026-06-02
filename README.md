@@ -293,6 +293,26 @@ Wisecow Pods
 
 The certificate was stored securely as a Kubernetes TLS Secret and referenced by the Ingress resource.
 
+To regenerate the certificate if needed:
+
+```bash
+openssl req -x509 -nodes -days 365 \
+  -newkey rsa:2048 \
+  -keyout tls/tls.key \
+  -out tls/tls.crt \
+  -subj "/CN=wisecow.local/O=wisecow"
+```
+
+Then recreate the TLS Secret:
+
+```bash
+kubectl create secret tls wisecow-tls \
+  --cert=tls/tls.crt \
+  --key=tls/tls.key \
+  -n wisecow \
+  --dry-run=client -o yaml | kubectl apply -f -
+```
+
 Access:
 
 ```bash

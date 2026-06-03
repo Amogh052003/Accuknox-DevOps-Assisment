@@ -542,6 +542,51 @@ This demonstrates end-to-end monitoring of the deployed application.
 
 ---
 
+# Problem Statement 3 - KubeArmor Zero Trust Policy
+
+A KubeArmor zero-trust security policy was implemented for the Wisecow workload.
+
+## Security Policy
+
+The policy blocks access to sensitive system files inside the container, specifically `/etc/shadow`.
+
+```
+action: Block
+resource: /etc/shadow
+```
+
+## Validation
+
+The policy was applied to the `wisecow` namespace and tested by attempting to access `/etc/shadow` from within the running container.
+
+**Command:**
+
+```bash
+kubectl exec -it <wisecow-pod> -n wisecow -- cat /etc/shadow
+```
+
+**Result:**
+
+```
+cat: /etc/shadow: Permission denied
+```
+
+## KubeArmor Alert
+
+KubeArmor generated a policy violation alert:
+
+```
+PolicyName: block-shadow-access
+Action: Block
+Result: Permission denied
+```
+
+This confirms successful enforcement of the zero-trust policy.
+
+A screenshot of the policy violation is included in the `screenshots/` directory.
+
+---
+
 # Technologies Used
 
 * Docker
@@ -592,6 +637,18 @@ This demonstrates end-to-end monitoring of the deployed application.
 ### Health check scripts
 
 ![Health check scripts](screenshots/Screenshot_20260602_234655.png)
+
+<br><br>
+
+### KubeArmor Setup
+
+![KubeArmor Setup](screenshots/Screenshot_20260603_131208.png)
+
+<br><br>
+
+### KubeArmor Violation
+
+![KubeArmor Violation](screenshots/Screenshot_20260603_131138.png)
 ---
 
 # Author
